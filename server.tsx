@@ -1,0 +1,51 @@
+import { serve } from "https://deno.land/std@0.164.0/http/server.ts";
+import { StaticRouter } from "react-router-dom/server";
+import { createServer } from "ultra/server.ts";
+import { createHeadInsertionTransformStream } from "ultra/stream.ts";
+import App from "./src/app.tsx";
+import { stringify, tw } from "./src/twind.ts";
+
+if (
+  Deno.env.get("ULTRA_MODE") === "development" &&
+  !Deno.env.get("ULTRA_LOG_LEVEL")
+) {
+  Deno.env.set("ULTRA_LOG_LEVEL", "DEBUG");
+}
+
+const server = await createServer({
+  importMapPath: Deno.env.get("ULTRA_MODE") === "development"
+    ? import.meta.resolve("./importMap.dev.json")
+    : import.meta.resolve("./importMap.json"),
+  browserEntrypoint: import.meta.resolve("./client.tsx"),
+});
+
+server.get("*", async (context) => {
+  /**
+   * Render the request with context
+   */
+  const result = await server.renderWithContext(
+    <StaticRouter location={new URL(context.req.url).pathname}>
+      <App />
+    </StaticRouter>,
+    context,
+  );
+
+  // Inject the style tag into the head of the streamed response
+  const stylesInject = createHeadInsertionTransformStream(() => {
+    if (Array.isArray(tw.target)) {
+      return Promise.resolve(stringify(tw.target));
+    }
+    throw new Error("Expected tw.target to be an instance of an Array");
+  });
+
+  const transformed = result.pipeThrough(stylesInject);
+
+  return context.body(transformed, 200, {
+    "content-type": "text/html; charset=utf-8",
+  });
+  // return context.body(result, undefined, {
+  //   "content-type": "text/html; charset=utf-8",
+  // });
+});
+
+serve(server.fetch, { port: 8008 });

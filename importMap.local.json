@@ -1,0 +1,16 @@
+{
+  "imports": {
+    "react": "http://m:8081/react@18.2.0?dev",
+    "react/": "http://m:8081/react@18.2.0/",
+    "react-dom": "http://m:8081/react-dom@18.2.0",
+    "react-dom/server": "http://m:8081/react-dom@18.2.0/server?dev",
+    "react-dom/client": "http://m:8081/react-dom@18.2.0/client?dev",
+    "ultra/": "../../",
+    "react-router-dom": "http://m:8081/react-router-dom@6.3.0?external=react",
+    "react-router-dom/server": "http://m:8081/react-router-dom@6.3.0/server?external=react",
+    "@/": "./src/",
+    "@twind/core": "https://esm.sh/@twind/core@1.0.1",
+    "@twind/preset-autoprefix": "https://esm.sh/@twind/preset-autoprefix@1.0.1",
+    "@twind/preset-tailwind": "https://esm.sh/*@twind/preset-tailwind@1.0.1"
+  }
+}

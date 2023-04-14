@@ -1,0 +1,19 @@
+{
+  "deno.enable": true,
+  "deno.unstable": true,
+  "deno.importMap": "./importMap.json",
+  "deno.codeLens.implementations": false,
+  "deno.codeLens.references": true,
+  "deno.codeLens.referencesAllFunctions": true,
+  "deno.codeLens.test": true,
+  "deno.inlayHints.enumMemberValues.enabled": false,
+  "deno.inlayHints.functionLikeReturnTypes.enabled": false,
+  "deno.inlayHints.parameterNames.enabled": "none",
+  "deno.internalDebug": true,
+  "deno.inlayHints.variableTypes.suppressWhenTypeMatchesName": false,
+  "deno.inlayHints.variableTypes.enabled": false,
+  "deno.inlayHints.propertyDeclarationTypes.enabled": false,
+"deno.inlayHints.parameterTypes.enabled": false,
+"editor.formatOnSave": true,
+"editor.formatOnType": true
+}
