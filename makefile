@@ -13,3 +13,6 @@ run:
 	docker run --name hdmap-ui -p 8000:8000 --rm  hdmap-ui
 runit:
 	docker run --name hdmap-ui -p 8000:8000 --rm -it --entrypoint bash hdmap-ui .
+lint:
+	deno lint
+	# deno lint --config=...
